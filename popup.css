@@ -1,0 +1,72 @@
+/* Set the basic styling for the popup */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    width: 300px; /* Set a fixed width for the popup */
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  /* Style the form containers */
+  #auth-container, #data-container {
+    width: 100%;
+  }
+  
+  /* Center and style the form headings */
+  h2 {
+    color: #333;
+    font-size: 1.5em;
+    margin-bottom: 10px;
+  }
+  
+  /* Style input fields */
+  input[type="email"],
+  input[type="password"],
+  input[type="text"],
+  input[type="date"] {
+    width: 90%; /* Make inputs responsive within the container */
+    padding: 8px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 1em;
+  }
+  
+  /* Style buttons */
+  button {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1em;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  
+  /* Style links */
+  p {
+    margin-top: 10px;
+    font-size: 0.9em;
+  }
+  
+  a {
+    color: #4CAF50;
+    text-decoration: none;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  

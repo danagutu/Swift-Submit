@@ -1,88 +1,87 @@
-// popup.js
+// Import Firebase modules
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js';
+import { 
+  getAuth, 
+  signInWithEmailAndPassword, 
+  createUserWithEmailAndPassword 
+} from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js';
 
-// Event listener for the "Sign Up" button
-document.getElementById('signup-button').addEventListener('click', () => {
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyAvJtVGUuCCyfhaEolYDWoP7lv5sLJ-FVg",
+  authDomain: "swift-submit.firebaseapp.com",
+  projectId: "swift-submit",
+  storageBucket: "swift-submit.firebasestorage.app",
+  messagingSenderId: "425735389289",
+  appId: "1:425735389289:web:55bf88368b63d2ad6b62f8",
+  measurementId: "G-9LSB1CKBXN"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+// Wait for DOM to load
+document.addEventListener('DOMContentLoaded', () => {
+  // Event listener for the "Login" button
+  document.getElementById('login-button').addEventListener('click', () => {
+    const email = document.getElementById('login-email').value;
+    const password = document.getElementById('login-password').value;
+    const messageElement = document.getElementById('login-message');
+
+    messageElement.textContent = ''; // Clear previous messages
+
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        messageElement.style.color = 'green';
+        messageElement.textContent = 'Login successful!';
+        console.log("User logged in:", user);
+      })
+      .catch(error => {
+        messageElement.style.color = 'red';
+        messageElement.textContent = 'Login failed: ' + error.message;
+        console.error("Login Error:", error);
+      });
+  });
+
+  // Sign up button event listener
+  document.getElementById('signup-button').addEventListener('click', () => {
     const name = document.getElementById('signup-name').value;
-    const surname = document.getElementById('signup-surname').value;
     const email = document.getElementById('signup-email').value;
     const password = document.getElementById('signup-password').value;
     const confirmPassword = document.getElementById('signup-confirm-password').value;
-  
-    // Check if passwords match
+    const messageElement = document.getElementById('signup-message');
+
+    messageElement.textContent = ''; // Clear previous messages
+
     if (password !== confirmPassword) {
-      alert('Passwords do not match. Please try again.');
+      messageElement.textContent = 'Passwords do not match.';
       return;
     }
-  
-    // Validate password strength
-    if (!isValidPassword(password)) {
-      alert('Password must be at least 6 characters long, contain one uppercase letter, one lowercase letter, one number, and one special character (, . ? ! / \\ - _).');
-      return;
-    }
-  
-    // Create a new user with email and password
-    window.auth.createUserWithEmailAndPassword(email, password)
+
+    createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
-        alert('Sign up successful!');
-  
-        // Save user data (Name and Surname) to Firestore
-        saveUserData(user.uid, name, surname);
-  
-        // Show data input form after successful sign-up
-        showDataContainer();
+        messageElement.style.color = 'green';
+        messageElement.textContent = 'Sign up successful!';
+        console.log("User created:", user);
       })
       .catch(error => {
-        console.error('Sign Up Error:', error);
-        alert('Sign Up failed: ' + error.message);
+        messageElement.style.color = 'red';
+        messageElement.textContent = 'Sign Up failed: ' + error.message;
+        console.error("Sign Up Error:", error);
       });
   });
-  
-  // Function to validate password strength
-  function isValidPassword(password) {
-    const minLength = 6;
-    const uppercasePattern = /[A-Z]/;
-    const lowercasePattern = /[a-z]/;
-    const numberPattern = /[0-9]/;
-    const specialCharPattern = /[,.?!\/\\\-_]/;
-  
-    return (
-      password.length >= minLength &&
-      uppercasePattern.test(password) &&
-      lowercasePattern.test(password) &&
-      numberPattern.test(password) &&
-      specialCharPattern.test(password)
-    );
-  }
-  
-  // Function to save user data to Firestore
-  async function saveUserData(userId, name, surname) {
-    try {
-      await window.db.collection('users').doc(userId).set({
-        name: name,
-        surname: surname,
-        email: window.auth.currentUser.email
-      });
-      console.log('User data saved to Firestore');
-    } catch (error) {
-      console.error('Error saving user data:', error);
-    }
-  }
-  
-  // Function to show data container after login/signup
-  function showDataContainer() {
-    document.getElementById('auth-container').style.display = 'none';
-    document.getElementById('data-container').style.display = 'block';
-  }
-  
+
   // Toggle between login and signup forms
   document.getElementById('show-signup').addEventListener('click', () => {
     document.getElementById('login-form').style.display = 'none';
     document.getElementById('signup-form').style.display = 'block';
   });
-  
+
   document.getElementById('show-login').addEventListener('click', () => {
     document.getElementById('signup-form').style.display = 'none';
     document.getElementById('login-form').style.display = 'block';
   });
-  
+});

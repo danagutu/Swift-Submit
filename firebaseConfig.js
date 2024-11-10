@@ -1,6 +1,10 @@
 // firebaseConfig.js
 
-// Firebase configuration object
+// Import necessary Firebase functions
+import { initializeApp } from 'firebase/app';
+import { getAuth } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore';
+
 const firebaseConfig = {
   apiKey: "AIzaSyAvJtVGUuCCyfhaEolYDWoP7lv5sLJ-FVg",
   authDomain: "swift-submit.firebaseapp.com",
@@ -11,13 +15,14 @@ const firebaseConfig = {
   measurementId: "G-9LSB1CKBXN"
 };
 
-// Initialize Firebase app
-const app = firebase.initializeApp(firebaseConfig);
 
-// Initialize Firebase services
-const auth = firebase.auth();
-const db = firebase.firestore();
 
-// Attach auth and db to the global window object so they can be used in popup.js
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+// Attach auth and db to the window object
 window.auth = auth;
 window.db = db;
+

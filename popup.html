@@ -9,45 +9,27 @@
     <!-- Login Form -->
     <div id="login-form">
       <h2>Login</h2>
-      <input type="email" id="login-email" placeholder="Email">
-      <input type="password" id="login-password" placeholder="Password">
+      <input type="email" id="login-email" placeholder="Email" required>
+      <input type="password" id="login-password" placeholder="Password" required>
       <button id="login-button">Login</button>
-      <p>Don't have an account? <a href="#" id="show-signup">Sign up</a></p>
+      <p id="login-message" style="color: red;"></p>
+      <p>New here? <a href="#" id="show-signup">Sign up</a></p>
     </div>
 
     <!-- Signup Form (Initially hidden) -->
     <div id="signup-form" style="display: none;">
       <h2>Sign Up</h2>
       <input type="text" id="signup-name" placeholder="Name" required>
-      <input type="text" id="signup-surname" placeholder="Surname" required>
       <input type="email" id="signup-email" placeholder="Email" required>
       <input type="password" id="signup-password" placeholder="Password" required>
       <input type="password" id="signup-confirm-password" placeholder="Confirm Password" required>
       <button id="signup-button">Sign Up</button>
+      <p id="signup-message" style="color: red;"></p>
       <p>Already have an account? <a href="#" id="show-login">Login</a></p>
     </div>
-
-  <!-- Data Input Form for After Login (Initially hidden) -->
-  <div id="data-container" style="display: none;">
-    <h2>Your Information</h2>
-    <input type="text" id="first-name" placeholder="First Name">
-    <input type="text" id="last-name" placeholder="Last Name">
-    <input type="date" id="date-of-birth" placeholder="Date of Birth">
-    <input type="text" id="email" placeholder="Email">
-    <input type="text" id="phone-number" placeholder="Phone Number">
-    <button id="save-button">Save</button>
-    <button id="logout-button">Logout</button>
   </div>
 
-  <!-- Load Firebase SDKs from CDN -->
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
-
-  <!-- Firebase configuration and initialization -->
-  <script src="firebaseConfig.js"></script>
-
-  <!-- Main JavaScript for popup functionality -->
-  <script src="popup.js"></script>
+  <!-- Import Firebase using module scripts -->
+  <script type="module" src="popup.js"></script>
 </body>
 </html>

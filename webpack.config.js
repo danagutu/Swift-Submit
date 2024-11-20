@@ -1,10 +1,25 @@
 const path = require('path');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
-  entry: './firebaseConfig.js', // Path to your Firebase config file
+  entry: './popup.js',
   output: {
-    filename: 'firebase-bundle.js',  // Bundled file Webpack will create
-    path: path.resolve(__dirname, 'dist'),
+    filename: 'popup.bundle.js',
+    path: path.resolve(__dirname, 'dist')
+  },
+  plugins: [
+    new Dotenv()
+  ],
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader'
+        }
+      }
+    ]
   },
   mode: 'production',
 };
